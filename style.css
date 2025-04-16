@@ -11,6 +11,29 @@ header {
   padding: 20px;
   text-align: center;
 }
+.navbar {
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #c8102e;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.navbar a:hover {
+  background-color: #f2f2f2;
+}
 section {
   margin-bottom: 30px;
 }
