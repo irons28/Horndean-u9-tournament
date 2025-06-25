@@ -72,3 +72,13 @@ footer {
   font-size: 0.9em;
   color: #777;
 }
+
+.team-photo {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba()0, 0, 0, 0.1);
+}
