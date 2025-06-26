@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Horndean U9 Round Robin Tournament 2025</title>
     <link rel="stylesheet" href="styling/style.css">
+    <script src="scripts/tournament.js"></script>
 </head>
 <body>
     <header>
@@ -211,87 +212,6 @@
       <tbody id="group2-body"></tbody>
     </table>
   </section>
-
-  <script>
-    const groups = {
-      group1: ['Horndean Sunday', 'Meon Milton', 'Havant & Waterlooville'],
-      group2: ['Horndean Saturday', 'Pickwick Lions', 'Clanfield Blues']
-    };
-
-    function initTable(teams) {
-      return teams.reduce((acc, t) => {
-        acc[t] = { team: t, pl: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0 };
-        return acc;
-      }, {});
-    }
-
-    function updateTables() {
-      const fixtures = document.querySelectorAll('li[data-team-a]');
-      const tables = {
-        group1: initTable(groups.group1),
-        group2: initTable(groups.group2)
-      };
-
-      function updateMatchResultsInline() {
-  const fixtures = document.querySelectorAll('li[data-team-a]');
-  fixtures.forEach((fix, index) => {
-    const sa = fix.dataset.scoreA;
-    const sb = fix.dataset.scoreB;
-    const span = document.getElementById(`r${index}`);
-    if (span && sa !== "" && sb !== "") {
-      span.textContent = `${sa} - ${sb}`;
-    }
-  });
-}
-
-      fixtures.forEach(fix => {
-        const a = fix.dataset.teamA;
-        const b = fix.dataset.teamB;
-        const sa = fix.dataset.scoreA;
-        const sb = fix.dataset.scoreB;
-        if (sa === "" || sb === "") return;
-
-        const sA = parseInt(sa);
-        const sB = parseInt(sb);
-
-        const group = groups.group1.includes(a) ? 'group1' : 'group2';
-
-        const teamA = tables[group][a];
-        const teamB = tables[group][b];
-
-        teamA.pl++; teamB.pl++;
-        teamA.gf += sA; teamA.ga += sB;
-        teamB.gf += sB; teamB.ga += sA;
-
-        if (sA > sB) { teamA.w++; teamB.l++; teamA.pts += 3; }
-        else if (sB > sA) { teamB.w++; teamA.l++; teamB.pts += 3; }
-        else { teamA.d++; teamB.d++; teamA.pts += 1; teamB.pts += 1; }
-
-        teamA.gd = teamA.gf - teamA.ga;
-        teamB.gd = teamB.gf - teamB.ga;
-      });
-
-      ['group1', 'group2'].forEach(g => {
-        const body = document.getElementById(`${g}-body`);
-        body.innerHTML = '';
-
-        const sorted = Object.values(tables[g]).sort((a, b) =>
-          b.pts - a.pts || b.gd - a.gd || b.gf - a.gf
-        );
-
-        sorted.forEach(t => {
-          body.innerHTML += `
-            <tr>
-              <td>${t.team}</td><td>${t.pl}</td><td>${t.w}</td><td>${t.d}</td><td>${t.l}</td>
-              <td>${t.gf}</td><td>${t.ga}</td><td>${t.gd}</td><td>${t.pts}</td>
-            </tr>`;
-        });
-      });
-      updateMatchResultsInline();
-    }
-
-    document.addEventListener("DOMContentLoaded", updateTables);
-  </script>
       
       <h3>Final</h3>
       <ul>
