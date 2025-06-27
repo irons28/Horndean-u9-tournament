@@ -159,3 +159,25 @@ footer {
   background-color: #d4edda;
   font-weight: bold;
 }
+
+.score-input {
+  width: 30px;
+  margin: 0 5px;
+}
+.save-btn {
+  margin-left: 10px;
+  padding: 2px 6px;
+}
+.league-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 10px;
+}
+.league-table th, .league-table td {
+  border: 1px solid #ccc;
+  padding: 4px 6px;
+  text-align: center;
+}
+.group-leader {
+  background-color: #dff0d8; /* light green highlight */
+}
