@@ -181,3 +181,6 @@ footer {
 .group-leader {
   background-color: #dff0d8; /* light green highlight */
 }
+.score-input, .save-btn {
+  display: none;
+}

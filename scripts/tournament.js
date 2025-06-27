@@ -158,3 +158,10 @@ document.addEventListener("DOMContentLoaded", () => {
   addResultInputs();
   updateTables();
 });
+
+function enableAdminMode() {
+  document.querySelectorAll(".score-input, .save-btn").forEach((el) => {
+    el.style.display = "inline-block";
+  });
+  document.getElementById("admin-btn").style.display = "none";
+}
