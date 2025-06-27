@@ -35,7 +35,9 @@ function loadFromLocalStorage() {
 }
 
 function addResultInputs() {
+  console.log('Adding inputs to fixtures...');
   const fixtures = document.querySelectorAll('li[data-team-a]');
+  console.log('fixtures found:', fixtures.length);
   fixtures.forEach((fix, index) => {
     if (fix.querySelector('input')) return;
 
@@ -79,7 +81,9 @@ function updateMatchResultsInline() {
 }
 
 function updateTables() {
+  console.log('Updating tables...');
   const fixtures = document.querySelectorAll('li[data-team-a]');
+  console.log('fixtures found:', fixtures.length);
   const tables = {
     group1: initTable(groups.group1),
     group2: initTable(groups.group2)
