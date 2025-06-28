@@ -173,19 +173,66 @@ function resetScores() {
   updateTables();
 }
 
+// Your existing functions: initTable(), saveToLocalStorage(), etc.
+// ...
+
+function checkAdminPassword() {
+  const passwordInput = document.getElementById("admin-password");
+  const password = passwordInput.value.trim();
+
+  if (password === "horndean2025") {
+    enableAdminMode();
+    passwordInput.value = "";
+
+    // Show reset button when password correct
+    document.getElementById("reset-btn").style.display = "inline-block";
+  } else {
+    alert("Incorrect password!");
+  }
+}
+
+function enableAdminMode() {
+  document.querySelectorAll(".score-input").forEach(el => {
+    el.style.display = "inline-block";
+  });
+}
+
+function resetScores() {
+  if (!confirm("Are you sure you want to reset all scores? This cannot be undone.")) return;
+
+  const fixtures = document.querySelectorAll("li[data-team-a]");
+  fixtures.forEach(fix => {
+    fix.dataset.scoreA = "";
+    fix.dataset.scoreB = "";
+  });
+
+  localStorage.removeItem("fixtures");
+
+  document.querySelectorAll(".score-input").forEach(el => {
+    el.style.display = "none";
+    el.value = "";
+  });
+
+  updateTables();
+
+  // Reset admin UI if needed
+  // document.getElementById("reset-btn").style.display = "none";
+  // document.getElementById("admin-login").style.display = "none";
+  // document.getElementById("admin-btn").style.display = "inline-block";
+}
+
+// Wait for DOM to be ready
 document.addEventListener("DOMContentLoaded", () => {
   loadFromLocalStorage();
   addResultInputs();
   updateTables();
 
-  // Hook up reset button if it exists
-  const resetBtn = document.getElementById("reset-btn");
-  if (resetBtn) {
-    resetBtn.style.display = "none"; // Hide by default
-    resetBtn.addEventListener("click", () => {
-      if (confirm("Are you sure you want to reset all scores?")) {
-        resetScores();
-      }
-    });
-  }
+  // Show password input area when "Enter Scores" clicked
+  document.getElementById("admin-btn").addEventListener("click", () => {
+    document.getElementById("admin-login").style.display = "block";
+    document.getElementById("admin-btn").style.display = "none";
+  });
+
+  // Hook up the reset button
+  document.getElementById("reset-btn").addEventListener("click", resetScores);
 });
