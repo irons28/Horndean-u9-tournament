@@ -184,3 +184,8 @@ footer {
 .score-input, .save-btn {
   display: none;
 }
+
+.score-input {
+  width: 50px;
+  margin-left: 10px;
+}

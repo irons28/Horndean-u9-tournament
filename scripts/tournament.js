@@ -36,38 +36,37 @@ function loadFromLocalStorage() {
 }
 
 function addResultInputs() {
-  console.log("Adding inputs to fixtures...");
   const fixtures = document.querySelectorAll("li[data-team-a]");
-  console.log("fixtures found:", fixtures.length);
   fixtures.forEach((fix, index) => {
     if (fix.querySelector("input")) return;
 
-    const inputA = document.createElement("input");
-    const inputB = document.createElement("input");
-    const button = document.createElement("button");
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "e.g. 2-1";
+    input.className = "score-input";
+    input.style.display = "none"; // hidden by default
 
-    inputA.type = "number";
-    inputB.type = "number";
-    inputA.placeholder = "A";
-    inputB.placeholder = "B";
-    inputA.className = "score-input";
-    inputB.className = "score-input";
-    button.textContent = "Save";
-    button.className = "save-btn";
+    input.addEventListener("blur", () => {
+      const [scoreA, scoreB] = input.value.split("-").map((s) => s.trim());
+      if (!isNaN(scoreA) && !isNaN(scoreB)) {
+        fix.dataset.scoreA = scoreA;
+        fix.dataset.scoreB = scoreB;
+        saveToLocalStorage();
+        updateTables();
+      }
+    });
+
+    fix.appendChild(input);
+  });
+}
 
     button.addEventListener("click", () => {
-      if (inputA.value === "" || inputB.value === "") return;
-      fix.dataset.scoreA = inputA.value;
-      fix.dataset.scoreB = inputB.value;
+      if (input.value === "") return;
+      fix.dataset.scoreA = input.value.split("-")[0];
+      fix.dataset.scoreB = input.value.split("-")[1];
       saveToLocalStorage();
       updateTables();
     });
-
-    fix.appendChild(inputA);
-    fix.appendChild(inputB);
-    fix.appendChild(button);
-  });
-}
 
 function updateMatchResultsInline() {
   const fixtures = document.querySelectorAll("li[data-team-a]");
