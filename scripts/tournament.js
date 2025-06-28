@@ -66,6 +66,8 @@ function updateMatchResultsInline() {
     const span = document.getElementById(`r${index}`);
     if (span && sa !== "" && sb !== "") {
       span.textContent = `${sa} - ${sb}`;
+    } else if (span) {
+      span.textContent = " - ";
     }
   });
 }
@@ -135,10 +137,55 @@ function enableAdminMode() {
     el.style.display = "inline-block";
   });
   document.getElementById("admin-btn").style.display = "none";
+  document.getElementById("admin-login").style.display = "none";
+
+  // Show reset button
+  const resetBtn = document.getElementById("reset-btn");
+  if (resetBtn) resetBtn.style.display = "inline-block";
+}
+
+function checkAdminPassword() {
+  const passwordInput = document.getElementById("admin-password");
+  const password = passwordInput.value.trim();
+
+  if (password === "horndean2025") {
+    enableAdminMode();
+    passwordInput.value = "";
+  } else {
+    alert("Incorrect password!");
+  }
+}
+
+function resetScores() {
+  // Clear dataset scores on all fixtures
+  const fixtures = document.querySelectorAll("li[data-team-a]");
+  fixtures.forEach(fix => {
+    fix.dataset.scoreA = "";
+    fix.dataset.scoreB = "";
+    const input = fix.querySelector(".score-input");
+    if (input) input.value = "";
+  });
+
+  // Clear localStorage
+  localStorage.removeItem("fixtures");
+
+  // Update tables and results display
+  updateTables();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   loadFromLocalStorage();
   addResultInputs();
   updateTables();
+
+  // Hook up reset button if it exists
+  const resetBtn = document.getElementById("reset-btn");
+  if (resetBtn) {
+    resetBtn.style.display = "none"; // Hide by default
+    resetBtn.addEventListener("click", () => {
+      if (confirm("Are you sure you want to reset all scores?")) {
+        resetScores();
+      }
+    });
+  }
 });

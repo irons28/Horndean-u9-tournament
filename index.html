@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horndean U9 Round Robin Tournament 2025</title>
-    <link rel="stylesheet" href="styling/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Horndean U9 Round Robin Tournament 2025</title>
+  <link rel="stylesheet" href="styling/style.css" />
 </head>
 <body>
-    <header>
-      <h1>Horndean Youth Round Robin Tournament 2025</h1>
-      <p>Sunday 29th June | <strong>Time: [Insert Time Here]</strong></p>
-    </header>
+  <header>
+    <h1>Horndean Youth Round Robin Tournament 2025</h1>
+    <p>Sunday 29th June | <strong>Time: [Insert Time Here]</strong></p>
+  </header>
 
-    <section>
-      <h2>Welcome</h2>
-      <p>Welcome to the Horndean Youth Round Robin Tournament 2025! We're delighted  to welcome six fantastic teams to compete in two exciting groups.</p>
-      <p>Each team will play the others in their group twice.  The winners of each group will go head-to-head in the final to be crowned champions.</p>
-      <p>Thank you to all players, coaches, and parents formaking this possible - enjoy the day, play with passion, and show great sportsmanship!</p>
-    </section>
+  <section>
+    <h2>Welcome</h2>
+    <p>Welcome to the Horndean Youth Round Robin Tournament 2025! We're delighted to welcome six fantastic teams to compete in two exciting groups.</p>
+    <p>Each team will play the others in their group twice. The winners of each group will go head-to-head in the final to be crowned champions.</p>
+    <p>Thank you to all players, coaches, and parents for making this possible – enjoy the day, play with passion, and show great sportsmanship!</p>
+  </section>
 
-    <section>
-      <h2>Rules</h2>
-      <ul>
-        <li>7-a-side with rolling substitutions</li>
-        <li>Matches are 20 minutes long</li>
-        <li>Each team plays their group opponents twice</li>
-        <li>3 points for a win, 1 for a draw, 0 for a loss</li>
-        <li>Group winners progress to the final</li>
-        <li>Tie-breakers: goal difference, goals scored, head-to-head</li>
-        <li>Respect everyone on and off the pitch - enjoy the football!</li>
-      </ul>
-    </section>
+  <section>
+    <h2>Rules</h2>
+    <ul>
+      <li>7-a-side with rolling substitutions</li>
+      <li>Matches are 20 minutes long</li>
+      <li>Each team plays their group opponents twice</li>
+      <li>3 points for a win, 1 for a draw, 0 for a loss</li>
+      <li>Group winners progress to the final</li>
+      <li>Tie-breakers: goal difference, goals scored, head-to-head</li>
+      <li>Respect everyone on and off the pitch – enjoy the football!</li>
+    </ul>
+  </section>
 
-    <section id="teams">
-      <h2>Teams & Players</h2>
+  <section id="teams">
+    <h2>Teams & Players</h2>
       
       <div class="team">
         <img src="images/horndean-sunday.jpg" alt="Horndean Sunday Team" class="team-photo">
@@ -139,9 +139,15 @@
         </ul>
       </div>
     </section>
-    <button onclick="enableAdminMode()" id="admin-btn">Enter Admin Mode</button>
-    <section id="fixtures">
-      <h2>Fixtures</h2>
+
+  <button onclick="enableAdminMode()" id="admin-btn">Enter Scores</button>
+  <div id="admin-login" style="display: none;">
+    <input type="password" id="admin-password" placeholder="Enter admin password" />
+    <button onclick="checkAdminPassword()">Login</button>
+  </div>
+
+  <section id="fixtures">
+    <h2>Fixtures</h2>
       <h3>Group 1 - Horndean Sunday, Meon Milton, Havant & Waterlooville</h3>
       <ul>
         <li data-team-a="Horndean Sunday" data-team-b="Havant & Waterlooville" data-score-a="" data-score-b="">
@@ -198,7 +204,8 @@
       </li>
       </ul>
       </section>
-      <section id="group1-table">
+
+  <section id="group1-table">
     <h2>Group 1 League Table</h2>
     <table class="league-table">
       <thead>
@@ -217,26 +224,28 @@
       <tbody id="group2-body"></tbody>
     </table>
   </section>
-      
-      <h3>Final</h3>
-      <ul>
-        <li><strong>13:05 Pitch 1: Group 1 Winner Vs Group 2 Winner</strong></li>
-      </ul>
-    </section>
 
-    <section>
-      <h2>Sponsors</h2>
-      <div class="sponsor">[Sponsor 1 Logo/Name]</div>
-      <div class="sponsor">[Sponsor 2 Logo/Name]</div>
-      <div class="sponsor">[Sponsor 3 Logo/Name]</div>
-      <div class="sponsor">[Sponsor 4 Logo/Name]</div>
-    </section>
+  <section id="final-match">
+    <h2>Final</h2>
+    <ul>
+      <li><strong>13:05 Pitch 1: Group 1 Winner Vs Group 2 Winner</strong></li>
+    </ul>
+  </section>
 
-    <footer>
-      <p>Thank you for supporting grassroots football.  Let's make it a great day!</p>
-      <p>&copy; 2025 Horndean U9 Round Robin Tournament. All rights reserved.</p>
-      <p>For more information, contact us at [Insert Contact Information]</p>
-    </footer>
-    <script src="scripts/tournament.js"></script>
+  <section>
+    <h2>Sponsors</h2>
+    <div class="sponsor">[Sponsor 1 Logo/Name]</div>
+    <div class="sponsor">[Sponsor 2 Logo/Name]</div>
+    <div class="sponsor">[Sponsor 3 Logo/Name]</div>
+    <div class="sponsor">[Sponsor 4 Logo/Name]</div>
+  </section>
+
+  <footer>
+    <p>Thank you for supporting grassroots football. Let's make it a great day!</p>
+    <p>&copy; 2025 Horndean U9 Round Robin Tournament. All rights reserved.</p>
+    <p>For more information, contact us at [Insert Contact Information]</p>
+  </footer>
+
+  <script src="scripts/tournament.js"></script>
 </body>
 </html>
