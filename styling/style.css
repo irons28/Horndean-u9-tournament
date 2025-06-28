@@ -1,189 +1,251 @@
-html {
-  scroll-behavior: smooth; /* Enables smooth scrolling */
+/* styling/style.css */
+
+/* General reset and base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: #f9f9f9;
-  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #F4F4F4;
+  color: #2c3e50;
+  line-height: 1.6;
   padding: 20px;
 }
 
+/* Header */
 header {
-  background: #c8102e;
-  color: white;
-  padding: 20px;
-  text-align: center;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 15px;
+  justify-content: space-between;
+  background-color: #c62828; /* Horndean red */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  margin-bottom: 20px;
   flex-wrap: wrap;
+  text-align: center;
 }
 
 .header-logo {
-  max-width: 120px;
-  height: auto;
+  max-height: 70px;
+  width: auto;
 }
 
+/* Navigation */
 .navbar {
   position: sticky;
   top: 0;
-  background: #ffffff;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background: #2c3e50;
   z-index: 1000;
+  border-radius: 6px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.navbar a {
+.nav-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nav-list li {
+  margin: 0 15px;
+}
+
+.nav-list li a {
+  color: white;
   text-decoration: none;
-  color: #c8102e;
-  font-weight: bold;
-  padding: 5px 10px;
-  border-radius: 5px;
+  font-weight: 600;
+  padding: 10px 12px;
+  display: block;
+  transition: background-color 0.3s ease;
 }
 
-.navbar a:hover {
-  background-color: #f2f2f2;
+.nav-list li a:hover {
+  background-color: #007b82;
+  border-radius: 4px;
 }
 
+#welcome, #rules {
+  text-align: center;
+  margin: 0 auto 2rem auto;
+  padding: 0 1rem;
+}
+
+#rules ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+/* Sections */
 section {
-  scroll-margin-top: 80px;
-  padding: 20px;
+  background: #fff9f1;
+  padding: 15px 25px;
+  border-radius: 6px;
   margin-bottom: 30px;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.1);
 }
 
 h2 {
-  color: #c8102e;
-  border-bottom: 2px solid #c8102e;
-  padding-bottom: 5px;
-}
-
-ul {
-  padding-left: 20px;
-}
-
-.team {
-  background: #fff;
-  padding: 15px;
-  border-radius: 8px;
+  color: #0097a7;
   margin-bottom: 15px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  text-align: center;
 }
 
-.sponsor {
-  display: inline-block;
-  width: 48%;
-  margin: 1%;
-  background: #fff;
-  padding: 10px;
+h3 {
+  color: #2c3e50;
+  margin-bottom: 10px;
   text-align: center;
-  border: 1px solid #ccc;
-  border-radius: 8px;
 }
 
-footer {
+/* Teams */
+.team {
+  margin-bottom: 30px;
   text-align: center;
-  font-size: 0.9em;
-  color: #777;
 }
 
 .team-photo {
-  display: block;
-  width: 100%;
-  max-width: 300px;
-  height: 200px;
+  width: 250px;
+  height: 150px;
   object-fit: cover;
   border-radius: 8px;
-  margin: 0 auto 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin: 10px auto;
+  display: block;
 }
 
+.team ul {
+  list-style-type: none;
+  padding-left: 0;
+  text-align: center;
+}
+
+.team ul li {
+  margin: 4px 0;
+}
+
+/* Fixtures */
+#fixtures ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+#fixtures li {
+  background: linear-gradient(to right, #ffffff, #c62828);
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  border-radius: 4px;
+}
+
+.result {
+  margin-left: 12px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* League Tables */
 .league-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
-  margin-bottom: 30px;
 }
 
-.league-table th, .league-table td {
-  border: 1px solid #ccc;
-  padding: 6px;
+.league-table th,
+.league-table td {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
   text-align: center;
 }
 
 .league-table th {
-  background-color: #c8102e;
+  background-color: #c62828;
   color: white;
 }
-
-.group-leader {
-  background-color: #dff0d8; /* light green highlight */
-  font-weight: bold;
-}
-
-.score-input {
-  display: none;  /* controlled by JS */
-  width: 40px;
-  margin: 0 5px;
-  padding: 2px;
+/* Final */
+#final-match {
   text-align: center;
-  font-size: 0.9em;
+  margin: 40px 0;
 }
 
-.save-btn {
-  margin-left: 10px;
-  padding: 2px 6px;
-  font-size: 0.8rem;
-  cursor: pointer;
-  display: none; /* hide initially */
+#final-match ul {
+  list-style: none;
+  padding: 0;
 }
 
-#admin-login {
-  margin: 1rem 0;
+#final-match li {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin: 10px 0;
 }
 
-#admin-password {
-  padding: 5px;
-  font-size: 1rem;
+/* Sponsors Section */
+#sponsors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Reset Button Styles */
-#reset-btn {
-  display: none;       /* hidden initially */
-  padding: 8px 16px;
-  background-color: #c8102e;
+.sponsor {
+  flex: 1 1 180px;
+  max-width: 220px;
+  background-color: #fff9f1;
+  border: 2px solid #0097a7;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.sponsor img {
+  width: 150px;
+  height: 80px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.sponsor:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Buttons */
+button {
+  background-color: #0097a7;
   color: white;
   border: none;
-  border-radius: 5px;
+  padding: 10px 16px;
+  border-radius: 6px;
   cursor: pointer;
-  font-weight: bold;
-  margin-top: 10px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
 }
 
-#reset-btn:hover {
-  background-color: #a50b23;
-}
-<<<<<<< HEAD
-.group-leader {
-  background-color: #dff0d8; /* light green highlight */
-}
-.score-input, .save-btn {
-  display: none;
+button:hover {
+  background-color: #007b82;
 }
 
-.score-input {
-  width: 50px;
-  margin-left: 10px;
-=======
-
-#admin-btn, #reset-btn {
-  display: inline-block;
+input[type="password"] {
+  padding: 8px 12px;
+  border: 2px solid #0097a7;
+  border-radius: 6px;
   margin-right: 10px;
-  margin-top: 10px;
->>>>>>> 5ae2ddaf700b5cc42522c758346bb3d93f2f4f40
+  font-size: 1rem;
+  width: 200px;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #777;
+  padding: 15px 0;
+  border-top: 1px solid #ddd;
+  margin-top: 40px;
 }
