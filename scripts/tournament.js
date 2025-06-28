@@ -66,8 +66,6 @@ function updateMatchResultsInline() {
     const span = document.getElementById(`r${index}`);
     if (span && sa !== "" && sb !== "") {
       span.textContent = `${sa} - ${sb}`;
-    } else if (span) {
-      span.textContent = " - ";
     }
   });
 }
@@ -136,12 +134,7 @@ function enableAdminMode() {
   document.querySelectorAll(".score-input").forEach(el => {
     el.style.display = "inline-block";
   });
-  document.getElementById("admin-btn").style.display = "none";
-  document.getElementById("admin-login").style.display = "none";
-
-  // Show reset button
-  const resetBtn = document.getElementById("reset-btn");
-  if (resetBtn) resetBtn.style.display = "inline-block";
+  document.getElementById("reset-btn").style.display = "inline-block";
 }
 
 function checkAdminPassword() {
@@ -151,50 +144,11 @@ function checkAdminPassword() {
   if (password === "horndean2025") {
     enableAdminMode();
     passwordInput.value = "";
+    // Optionally hide login form:
+    // document.getElementById("admin-login").style.display = "none";
   } else {
     alert("Incorrect password!");
   }
-}
-
-function resetScores() {
-  // Clear dataset scores on all fixtures
-  const fixtures = document.querySelectorAll("li[data-team-a]");
-  fixtures.forEach(fix => {
-    fix.dataset.scoreA = "";
-    fix.dataset.scoreB = "";
-    const input = fix.querySelector(".score-input");
-    if (input) input.value = "";
-  });
-
-  // Clear localStorage
-  localStorage.removeItem("fixtures");
-
-  // Update tables and results display
-  updateTables();
-}
-
-// Your existing functions: initTable(), saveToLocalStorage(), etc.
-// ...
-
-function checkAdminPassword() {
-  const passwordInput = document.getElementById("admin-password");
-  const password = passwordInput.value.trim();
-
-  if (password === "horndean2025") {
-    enableAdminMode();
-    passwordInput.value = "";
-
-    // Show reset button when password correct
-    document.getElementById("reset-btn").style.display = "inline-block";
-  } else {
-    alert("Incorrect password!");
-  }
-}
-
-function enableAdminMode() {
-  document.querySelectorAll(".score-input").forEach(el => {
-    el.style.display = "inline-block";
-  });
 }
 
 function resetScores() {
@@ -215,24 +169,21 @@ function resetScores() {
 
   updateTables();
 
-  // Reset admin UI if needed
-  // document.getElementById("reset-btn").style.display = "none";
-  // document.getElementById("admin-login").style.display = "none";
-  // document.getElementById("admin-btn").style.display = "inline-block";
+  // Reset admin UI to initial state
+  document.getElementById("reset-btn").style.display = "none";
+  document.getElementById("admin-login").style.display = "none";
+  document.getElementById("admin-btn").style.display = "inline-block";
 }
 
-// Wait for DOM to be ready
 document.addEventListener("DOMContentLoaded", () => {
-  loadFromLocalStorage();
-  addResultInputs();
-  updateTables();
-
-  // Show password input area when "Enter Scores" clicked
   document.getElementById("admin-btn").addEventListener("click", () => {
     document.getElementById("admin-login").style.display = "block";
     document.getElementById("admin-btn").style.display = "none";
   });
 
-  // Hook up the reset button
   document.getElementById("reset-btn").addEventListener("click", resetScores);
+
+  loadFromLocalStorage();
+  addResultInputs();
+  updateTables();
 });
