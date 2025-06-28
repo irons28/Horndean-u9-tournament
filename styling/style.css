@@ -184,3 +184,18 @@ footer {
 .score-input, .save-btn {
   display: none;
 }
+
+#admin-login {
+  margin: 1rem 0;
+}
+
+#admin-password {
+  padding: 5px;
+  font-size: 1rem;
+}
+
+.score-input {
+  display: none;
+  width: 50px;
+  margin-left: 10px;
+}
