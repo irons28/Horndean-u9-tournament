@@ -128,15 +128,18 @@ function updateTables() {
   });
 
   updateMatchResultsInline();
+
+  // Update final match after tables updated
+  updateFinalMatch(tables);
 }
 
-function enableAdminMode() {
-  document.querySelectorAll(".score-input").forEach(el => {
-    el.style.display = "inline-block";
-  });
-  document.getElementById("reset-btn").style.display = "inline-block";
-}
+// Show the password input area when "Enter Scores" clicked
+document.getElementById("admin-btn").addEventListener("click", () => {
+  document.getElementById("admin-login").style.display = "block";
+  document.getElementById("admin-btn").style.display = "none";
+});
 
+// Check admin password, show inputs and reset button on success
 function checkAdminPassword() {
   const passwordInput = document.getElementById("admin-password");
   const password = passwordInput.value.trim();
@@ -144,13 +147,23 @@ function checkAdminPassword() {
   if (password === "horndean2025") {
     enableAdminMode();
     passwordInput.value = "";
-    // Optionally hide login form:
+    // Optionally hide login area or keep visible
     // document.getElementById("admin-login").style.display = "none";
+
+    // Show reset button
+    document.getElementById("reset-btn").style.display = "inline-block";
   } else {
     alert("Incorrect password!");
   }
 }
 
+function enableAdminMode() {
+  document.querySelectorAll(".score-input").forEach(el => {
+    el.style.display = "inline-block";
+  });
+}
+
+// Reset all scores and clear localStorage
 function resetScores() {
   if (!confirm("Are you sure you want to reset all scores? This cannot be undone.")) return;
 
@@ -160,29 +173,103 @@ function resetScores() {
     fix.dataset.scoreB = "";
   });
 
+  // Clear localStorage
   localStorage.removeItem("fixtures");
+  localStorage.removeItem("finalMatch");
 
+  // Hide score inputs and clear input values
   document.querySelectorAll(".score-input").forEach(el => {
     el.style.display = "none";
     el.value = "";
   });
 
-  updateTables();
+  // Clear final match inputs too
+  const finalScoreInput = document.getElementById("final-score");
+  if(finalScoreInput) {
+    finalScoreInput.value = "";
+  }
+  const finalResultSpan = document.getElementById("final-result");
+  if(finalResultSpan) {
+    finalResultSpan.textContent = "";
+  }
 
-  // Reset admin UI to initial state
+  // Reset admin UI if needed
   document.getElementById("reset-btn").style.display = "none";
   document.getElementById("admin-login").style.display = "none";
   document.getElementById("admin-btn").style.display = "inline-block";
+
+  updateTables();
+}
+
+// Hook reset button event
+document.getElementById("reset-btn").addEventListener("click", resetScores);
+
+// Save/load final match score from localStorage
+function saveFinalToLocalStorage(finalScoreA, finalScoreB) {
+  localStorage.setItem("finalMatch", JSON.stringify({scoreA: finalScoreA, scoreB: finalScoreB}));
+}
+
+function loadFinalFromLocalStorage() {
+  const saved = JSON.parse(localStorage.getItem("finalMatch"));
+  if (saved) {
+    return { scoreA: saved.scoreA, scoreB: saved.scoreB };
+  }
+  return { scoreA: "", scoreB: "" };
+}
+
+// Update final match UI with winners and input
+function updateFinalMatch(tables) {
+  const group1Winner = Object.values(tables.group1).sort(
+    (a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf
+  )[0].team;
+
+  const group2Winner = Object.values(tables.group2).sort(
+    (a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf
+  )[0].team;
+
+  const finalSection = document.getElementById("final-match");
+  finalSection.innerHTML = `
+    <h2>Final</h2>
+    <ul>
+      <li>
+        <strong>13:05 Pitch 1: ${group1Winner} vs ${group2Winner}</strong>
+        <input type="text" id="final-score" placeholder="e.g. 2-1" style="margin-left:10px; width:60px;">
+        <span id="final-result" style="margin-left:10px; font-weight:bold;"></span>
+      </li>
+    </ul>
+  `;
+
+  const finalScoreInput = document.getElementById("final-score");
+  const finalResultSpan = document.getElementById("final-result");
+
+  // Load saved final score if any
+  const savedFinalScore = loadFinalFromLocalStorage();
+  if (savedFinalScore.scoreA !== "" && savedFinalScore.scoreB !== "") {
+    finalScoreInput.value = `${savedFinalScore.scoreA} - ${savedFinalScore.scoreB}`;
+    finalResultSpan.textContent = `${savedFinalScore.scoreA} - ${savedFinalScore.scoreB}`;
+  }
+
+  // Enable input only if admin mode is active
+  if (document.querySelectorAll(".score-input").length > 0 && document.querySelector(".score-input")[0].style.display === "inline-block") {
+    finalScoreInput.style.display = "inline-block";
+  } else {
+    finalScoreInput.style.display = "none";
+  }
+
+  // Save and update on blur
+  finalScoreInput.addEventListener("blur", () => {
+    const val = finalScoreInput.value;
+    const parts = val.split("-").map(s => s.trim());
+    if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+      finalResultSpan.textContent = `${parts[0]} - ${parts[1]}`;
+      saveFinalToLocalStorage(parts[0], parts[1]);
+    } else {
+      finalResultSpan.textContent = "Invalid format";
+    }
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("admin-btn").addEventListener("click", () => {
-    document.getElementById("admin-login").style.display = "block";
-    document.getElementById("admin-btn").style.display = "none";
-  });
-
-  document.getElementById("reset-btn").addEventListener("click", resetScores);
-
   loadFromLocalStorage();
   addResultInputs();
   updateTables();
